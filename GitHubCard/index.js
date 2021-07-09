@@ -1,9 +1,20 @@
-import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+console.log('1 about to fetch my data')
+axios.get('https://api.github.com/users/NelsonMaldonado').then(futureData =>{
+  //future code, for when the data actually arrives
+  // freedom to assume the data is here
+  console.log('2 here is the future data', futureData)
+  console.log('here is the RESPONSE BODY', futureData.data)
+})
+.catch(drama => {
+  //handle the drama
+  console.log(drama)
+})
 
 
 /*
