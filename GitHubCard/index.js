@@ -3,7 +3,13 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/NelsonMaldonado')
+.then (res=>{
+  console.log(res);
+})
+.catch(err=>{
+  console.error(err);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -60,4 +66,3 @@ const followersArray = [];
 */
 
 
-const saved = 'your project is saved';
