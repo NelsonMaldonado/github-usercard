@@ -6,6 +6,7 @@
 axios.get('https://api.github.com/users/NelsonMaldonado')
 .then (res=>{
   console.log(res);
+  
 })
 .catch(err=>{
   console.error(err);
@@ -35,7 +36,32 @@ axios.get('https://api.github.com/users/NelsonMaldonado')
 */
 
 const followersArray = [];
-
+function (object){
+  const divCard = document.createElement('div')
+  divCard.classList.add('card');
+  const imgCard = document.createElement('img')
+  imgCard.setAttribute('src', `${userImgUrl}`)
+  const h3Name = document.createElement('h3')
+  h3Name.classList.add('name')
+  h3Name.textContent = `${userName}`;
+  const pUserName = document.createElement('p')
+  pUserName.classList.add('username')
+  pUserName.textContent = `${userNameCard}`;
+  const pLocation = document.createElement('p');
+  pLocation.textContent = `${userLocation}`;
+  const pProfile = document.createElement('p')
+  pProfile.textContent = 'Profile:'
+  const aHref = document.createElement('a')
+  aHref.setAttribute('href',`${addressToGithub}`)
+  aHref.textContent = `${addressToGithub}`;
+  const pFollowers = document.createElement('p')
+  pFollowers.textContent = `Followers: ${followers}`;
+  const pFollowing = document.createElement('p')
+  pFollowing.textContent = `Following: ${following}`;
+  const pBio = document.createElement('p')
+  pBio.textContent = `${userBio}`
+  
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
