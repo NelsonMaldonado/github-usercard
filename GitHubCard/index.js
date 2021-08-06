@@ -3,14 +3,28 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/NelsonMaldonado')
-.then (res=>{
-  console.log(res);
-  
-})
-.catch(err=>{
-  console.error(err);
-})
+const mainAppend = document.querySelector(".cards");
+
+function getUserGit(user) {
+  axios
+    .get(`https://api.github.com/users/${user}`)
+    .then((res) => {
+      console.log(res);
+      const userCard = gitCardMaker(res.data);
+      console.log(userCard);
+      mainAppend.appendChild(userCard);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+// getUserGit("tetondan");
+// getUserGit("NelsonMaldonado");
+// getUserGit("dustinmyers");
+// getUserGit("justsml");
+// getUserGit("luishrd");
+// getUserGit("bigknell");
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -36,31 +50,64 @@ axios.get('https://api.github.com/users/NelsonMaldonado')
 */
 
 const followersArray = [];
-function (object){
-  const divCard = document.createElement('div')
-  divCard.classList.add('card');
-  const imgCard = document.createElement('img')
-  imgCard.setAttribute('src', `${userImgUrl}`)
-  const h3Name = document.createElement('h3')
-  h3Name.classList.add('name')
-  h3Name.textContent = `${userName}`;
-  const pUserName = document.createElement('p')
-  pUserName.classList.add('username')
-  pUserName.textContent = `${userNameCard}`;
-  const pLocation = document.createElement('p');
-  pLocation.textContent = `${userLocation}`;
-  const pProfile = document.createElement('p')
-  pProfile.textContent = 'Profile:'
-  const aHref = document.createElement('a')
-  aHref.setAttribute('href',`${addressToGithub}`)
-  aHref.textContent = `${addressToGithub}`;
-  const pFollowers = document.createElement('p')
+
+function gitCardMaker({
+  avatar_url,
+  name,
+  location,
+  html_url,
+  followers,
+  following,
+  bio,
+}) {
+  const divCard = document.createElement("div");
+  divCard.classList.add("card");
+
+  const divCardInfo = document.createElement("div");
+  divCardInfo.classList.add("card-info");
+
+  const imgCard = document.createElement("img");
+  imgCard.setAttribute("src", `${avatar_url}`);
+
+  const h3Name = document.createElement("h3");
+  h3Name.classList.add("name");
+  h3Name.textContent = `${name}`;
+
+  const pUserName = document.createElement("p");
+  pUserName.classList.add("username");
+  pUserName.textContent = `${name}`;
+
+  const pLocation = document.createElement("p");
+  pLocation.textContent = `${location}`;
+
+  const pProfile = document.createElement("p");
+  pProfile.textContent = "Profile:";
+
+  const aHref = document.createElement("a");
+  aHref.setAttribute("href", `${html_url}`);
+  aHref.textContent = `${html_url}`;
+
+  const pFollowers = document.createElement("p");
   pFollowers.textContent = `Followers: ${followers}`;
-  const pFollowing = document.createElement('p')
+
+  const pFollowing = document.createElement("p");
   pFollowing.textContent = `Following: ${following}`;
-  const pBio = document.createElement('p')
-  pBio.textContent = `${userBio}`
-  
+
+  const pBio = document.createElement("p");
+  pBio.textContent = `Bio: ${bio}`;
+  // Append
+  divCard.appendChild(imgCard);
+  divCard.appendChild(divCardInfo);
+  divCardInfo.appendChild(h3Name);
+  divCardInfo.appendChild(pUserName);
+  divCardInfo.appendChild(pLocation);
+  divCardInfo.appendChild(pProfile);
+  pProfile.appendChild(aHref);
+  divCardInfo.appendChild(pFollowers);
+  divCardInfo.appendChild(pFollowing);
+  divCardInfo.appendChild(pBio);
+
+  return divCard;
 }
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -91,4 +138,29 @@ function (object){
     bigknell
 */
 
+// function getGitUser(userName){
+//   axios.get(`https://api.github.com/users/${userName}`)
+//   .then(res=>{
+//     console.log(res.data);
+//   })
+//   .catch(err =>{
+//     console.log(err);
+//   })
+// }
 
+const followersArr = [
+  "NelsonMaldonado",
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+followersArr.forEach((item) => {
+  getUserGit(item);
+});
+
+// followersArr.map(follower =>{
+//   getGitUser(follower);
+// })
